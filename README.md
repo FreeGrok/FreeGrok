@@ -1,30 +1,31 @@
 
 Copyright (c) 2006, 2017 Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2018 Chris Fraire <cfraire@me.com>.
 
 
-# OpenGrok - a wicked fast source browser [![Build Status](https://travis-ci.org/oracle/opengrok.svg?branch=master)](https://travis-ci.org/oracle/opengrok)
+# FreeGrok - a wicked fast source browser [![Build Status](https://travis-ci.org/FreeGrok/FreeGrok.svg?branch=master)](https://travis-ci.org/FreeGrok/FreeGrok)
 
 1.  [Introduction](#1-introduction)
 2.  [Requirements](#2-requirements)
 3.  [Usage](#3-usage)
-4.  [OpenGrok install](#4-opengrok-install)
-5.  [OpenGrok setup](#5-opengrok-setup)
+4.  [FreeGrok install](#4-freegrok-install)
+5.  [FreeGrok setup](#5-freegrok-setup)
 6.  [Optional Command Line Interface Usage](#6-optional-command-line-interface-usage)
 7.  [Change web application properties or name](#7-change-web-application-properties-or-name)
 8.  [Information for developers](#8-information-for-developers)
-9.  [Tuning OpenGrok for large code bases](#9-tuning-opengrok-for-large-code-bases)
+9.  [Tuning FreeGrok for large code bases](#9-tuning-freegrok-for-large-code-bases)
 10. [Authors](#10-authors)
 11. [Contact us](#11-contact-us)
 
 ## 1. Introduction
 
-OpenGrok is a fast and usable source code search and cross reference
+FreeGrok is a fast and usable source code search and cross reference
 engine, written in Java. It helps you search, cross-reference and navigate
 your source tree. It can understand various program file formats and
 version control histories of many source code management systems.
 
 Official page of the project is on:  
-<http://opengrok.github.com/OpenGrok/>
+<https://github.com/FreeGrok/>
 
 ## 2. Requirements
 * Latest Java (at least 1.8)  
@@ -35,7 +36,7 @@ Official page of the project is on:
   <http://ctags.sourceforge.net/>  
   <https://ctags.io/>
 * Source Code Management installation depending on type of repositories indexed
-* If you want to build OpenGrok:
+* If you want to build FreeGrok:
   * Ant (1.9.4 and later)  
     <http://ant.apache.org/>
   * JFlex  
@@ -45,17 +46,17 @@ Official page of the project is on:
 
 ## 3. Usage
 
-OpenGrok usually runs in servlet container (e.g. Tomcat).
+FreeGrok usually runs in servlet container (e.g. Tomcat).
 
 `SRC_ROOT` environment variable refers to the directory containing your source
-tree. OpenGrok analyzes the source tree and builds a search index along with
+tree. FreeGrok analyzes the source tree and builds a search index along with
 cross-referenced hypertext versions of the source files. These generated
 data files will be stored in directory referred to with environment variable
 called `DATA_ROOT`.
 
 ### 3.1 Projects
 
-OpenGrok has a concept of **Projects** - one project is one directory underneath
+FreeGrok has a concept of **Projects** - one project is one directory underneath
 `SRC_ROOT` directory which usually contains a checkout of a project sources.
  (this can be branch, version, ...)
 
@@ -76,29 +77,29 @@ For example, the `SRC_ROOT` directory can contain the following directories:
 * openssl-1.0.0-stable
 
 Each of these directories was created with `cvs checkout` command (with
-appropriate arguments to get given branch) and will be treated by OpenGrok
+appropriate arguments to get given branch) and will be treated by FreeGrok
 as a project.
 
 ### 3.2 Messages
 
-Deployed OpenGrok can receive couple of messages through the active socket which
+Deployed FreeGrok can receive couple of messages through the active socket which
 usually listens for the main configuration file. These are used in the web
 application and displayed to the users. One can easily notify users about some
 important events, for example that the reindex is being in progress and that
 the searched information can be inconsistent.
 
-The OpenGrok comes with a tool which allows you to send these messages without
+FreeGrok comes with a tool which allows you to send these messages without
 any problem. It is called **Messages** and it is located under the tools directory.
 See the file for usage and more information.
 
 #### 3.2.1 Tags
 
 Any message can use tags which makes it more specific for the application.
-Messages which tag match some OpenGrok project are considered project specific
+Messages which tag match some FreeGrok project are considered project specific
 and the information contained in them are displayed only for the specific projects.
 
 There is a key tag `main` which is exclusive for displaying
-messages on the OpenGrok landing page - like a common information.
+messages on the FreeGrok landing page - like a common information.
 
 #### 3.2.2 Types
 
@@ -141,7 +142,7 @@ Currently supported message types:
   * **get-repos** – get list of repositories in the form of relative paths to source root for given project(s)
   * **get-repos-type** – get repository type(s) for given project(s)
 
-## 4. OpenGrok install
+## 4. FreeGrok install
 
 ### 4.1 Installing on Solaris from *.p5p file
 
@@ -155,38 +156,38 @@ pkg install --no-refresh -g /path/to/file <package_name>.p5p opengrok
 
 #### 4.1.1 Update
 
-You can also update OpenGrok software with the `*.p5p` file by running a command
+You can also update FreeGrok software with the `*.p5p` file by running a command
 
 ```
 pkg update --no-refresh -g /path/to/file/<package_name>.p5p 'pkg://opengrok/*'
 ```
 
-## 5. OpenGrok setup
+## 5. FreeGrok setup
 
-To setup OpenGrok it is needed to prepare the source code, let OpenGrok index
+To setup FreeGrok it is needed to prepare the source code, let FreeGrok index
 it and start the web application.
 
 ### 5.1 Setting up the sources
 
-Source base should be available locally for OpenGrok to work efficiently.
+Source base should be available locally for FreeGrok to work efficiently.
 No changes are required to your source tree. If the code is under source
-control management (SCM) OpenGrok requires the checked out source tree under
+control management (SCM) FreeGrok requires the checked out source tree under
 `SRC_ROOT`.
 
-By itself OpenGrok does not perform the setup of the source code repositories
+By itself FreeGrok does not perform the setup of the source code repositories
 or synchronization of the source code with its origin. This needs to be done by
 the user or by using automatic scripts.
 
 It is possible for SCM systems which are not distributed (Subversion, CVS)
 to use a remote repository but this is not recommended due to the performance
-penalty. Special option when running the OpenGrok indexer is needed to enable
+penalty. Special option when running the FreeGrok indexer is needed to enable
 remote repository support (`-r on`).
 
 In order for history indexing to work for any SCM system it is necessary
 to have environment for given SCM systems installed and in a path accessible
-by OpenGrok.
+by FreeGrok.
 
-Note that OpenGrok ignores symbolic links.
+Note that FreeGrok ignores symbolic links.
 
 If you want to skip indexing the history of a particular directory
 (and all of it's subdirectories), you can touch `.opengrok_skip_history` file
@@ -196,7 +197,7 @@ set `OPENGROK_GENERATE_HISTORY` environment variable to `off` during indexing.
 
 ### 5.2 Using Opengrok shell wrapper script to create indexes
 
-For \*nix systems there is a shell script called `OpenGrok` which simplifies most
+For \*nix systems there is a shell script called `FreeGrok` which simplifies most
 of the tasks. It has been tested on Solaris and Linux distributions.
 
 #### 5.2.1 Deploy the web application
@@ -225,14 +226,14 @@ Please follow the error message it provides.
 If it fails to discover your container, please refer to optional steps on
 changing web application properties below, which explains how to do this.
 
-Note that OpenGrok script expects the directory `/var/opengrok` to be
-available to user running opengrok with all permissions. In root user case
+Note that FreeGrok script expects the directory `/var/opengrok` to be
+available to user running FreeGrok with all permissions. In root user case
 it will create all the directories needed, otherwise you have to manually
 create the directory and grant all permissions to the user used.
 
 #### 5.2.2 Populate DATA\_ROOT Directory
 
-During this process the indexer will generate OpenGrok XML configuration file
+During this process the indexer will generate FreeGrok XML configuration file
 `configuration.xml` and sends the updated configuration to your web app.
 
 The indexing can take a lot of time. After this is done, indexer automatically
@@ -240,7 +241,7 @@ attempts to upload newly generated configuration to the web application.
 Most probably you will not be able to use Opengrok before this is done for the
 first time.
 
-Please change to opengrok directory (can vary on your system)
+Please change to FreeGrok directory (can vary on your system)
 
 ```bash
 cd /usr/opengrok/bin
@@ -262,7 +263,7 @@ The above command attempts to upload the latest index status reflected into
 `configuration.xml` to a running source web application.
 Once above command finishes without errors
 (e.g. `SEVERE: Failed to send configuration to localhost:2424`),
-you should be able to enjoy your OpenGrok and search your sources using
+you should be able to enjoy your FreeGrok and search your sources using
 latest indexes and setup.
 
 It is assumed that any SCM commands are reachable in one of the components
@@ -272,7 +273,7 @@ the web server instance.
 
 Congratulations, you should now be able to point your browser to
 `http://<YOUR_WEBAPP_SERVER>:<WEBAPPSRV_PORT>/source` to work with your fresh
-OpenGrok installation! :-)
+FreeGrok installation! :-)
 
 At this time we'd like to point out some customization to OpenGrok script
 for advanced users.
@@ -280,7 +281,7 @@ A common case would be, that you want the data in some other directory than
 `/var/opengrok`. This can be easily achieved by using environment variable
 `OPENGROK_INSTANCE_BASE`.
 
-E.g. if OpenGrok data directory is `/tank/opengrok` and source root is
+E.g. if FreeGrok data directory is `/tank/opengrok` and source root is
 in `/tank/source` then to get more verbosity run the indexer as:
 
 ```bash
@@ -290,7 +291,7 @@ OPENGROK_VERBOSE=true OPENGROK_INSTANCE_BASE=/tank/opengrok
 
 Since above will also change default location of config file, beforehand(or
 restart your web container after creating this symlink) I suggest doing
-below for our case of having OpenGrok instance in `/tank/opengrok`:
+below for our case of having FreeGrok instance in `/tank/opengrok`:
 
 ```bash
 ln -s /tank/opengrok/etc/configuration.xml /var/opengrok/etc/configuration.xml
@@ -390,9 +391,9 @@ OpenGrok indexpart /myproj
 
 The last argument is path relative to `SRC_ROOT`.
 
-### 5.3 Using SMF service (Solaris) to maintain OpenGrok indexes
+### 5.3 Using SMF service (Solaris) to maintain FreeGrok indexes
 
-If you installed OpenGrok from the OSOLopengrok package, it will work out of
+If you installed FreeGrok from the OSOLopengrok package, it will work out of
 the box. Should you need to configure it (e.g. because of non-default `SRC_ROOT`
 or `DATA_ROOT` paths) it is done via the `opengrok` property group of the
 service like this:
@@ -448,7 +449,7 @@ configuration into a separate file and simplify future upgrades.
 * **Option 2. opengrok.jar**:  
   You can also directly use the Java application. If
   the sources are all located in a directory `SRC_ROOT` and the data and
-  hypertext files generated by OpenGrok are to be stored in `DATA_ROOT`, run
+  hypertext files generated by FreeGrok are to be stored in `DATA_ROOT`, run
 
   ```bash
   java -jar opengrok.jar -s $SRC_ROOT -d $DATA_ROOT
@@ -464,12 +465,12 @@ To configure the webapp `source.war`, look into the parameters defined in
 * **HEADER** – the fragment of HTML that will be used to display title or
               logo of your project
 * **SRC_ROOT** – absolute path name of the root directory of your source tree
-* **DATA_ROOT** – absolute path of the directory where OpenGrok data
+* **DATA_ROOT** – absolute path of the directory where FreeGrok data
                  files are stored
 
   * File `header_include` can be created under `DATA_ROOT`.
     The contents of this file will be appended to the header of each
-    web page after the OpenGrok logo element.
+    web page after the FreeGrok logo element.
   * File `footer_include` can be created under `DATA_ROOT`.
     The contents of this file will be appended to the footer of each
     web page after the information about last index update.
@@ -483,11 +484,11 @@ To configure the webapp `source.war`, look into the parameters defined in
 
 #### 5.4.3 Path Descriptions (optional)
 
-OpenGrok can use path descriptions in various places (e.g. while showing
+FreeGrok can use path descriptions in various places (e.g. while showing
 directory listings or search results). Example descriptions are in `paths.tsv`
-file (delivered as `/usr/opengrok/doc/paths.tsv` by OpenGrok package on Solaris).
+file (delivered as `/usr/opengrok/doc/paths.tsv` by FreeGrok package on Solaris).
 
-The `paths.tsv` file is read by OpenGrok indexing script from the configuration
+The `paths.tsv` file is read by FreeGrok indexing script from the configuration
 directory (the same where `configuration.xml` is located) which will create file
 `dtags.eftar` in the index subdirectory under `DATA_ROOT` directory which will
 then be used by the webapp to display the descriptions.
@@ -580,7 +581,7 @@ specify configuration file with extra configuration options for ctags.
 This can be done by setting `OPENGROK_CTAGS_OPTIONS_FILE` environment variable
 when running the OpenGrok shell script (or directly with the `-o` option for
 `opengrok.jar`). Default location for the configuration file in the OpenGrok
-shell script is `etc/ctags.config` under the OpenGrok base directory (by default
+shell script is `etc/ctags.config` under the FreeGrok base directory (by default
 the full path to the file will be `/var/opengrok/etc/ctags.config`).
 
 Sample configuration file for Solaris code base is delivered in the `doc/`
@@ -603,7 +604,7 @@ You should even be able to override OpenGroks analyzers using this option.
 
 Both indexer and web app emit extensive log messages.
 
-OpenGrok is shipped with the `logging.properties` file that contains logging
+FreeGrok is shipped with the `logging.properties` file that contains logging
 configuration.
 
 The `OpenGrok` shell script will automatically use this file
@@ -722,9 +723,9 @@ occurences in the `TESTS-TestSuites.xml` file produced by the test run.
 
 ### 8.2 Using Findbugs
 
-If you want to run Findbugs (<http://findbugs.sourceforge.net/>) on OpenGrok,
+If you want to run Findbugs (<http://findbugs.sourceforge.net/>) on FreeGrok,
 you have to download Findbugs to your machine, and install it where you have
-checked out your OpenGrok source code, under the `lib/findbugs` directory,
+checked out your FreeGrok source code, under the `lib/findbugs` directory,
 like this:
 
 ```bash
@@ -762,7 +763,7 @@ that can later be parsed, e.g. by Jenkins.
 
 ### 8.3 Using Jacoco
 
-If you want to check test coverage on OpenGrok, download jacoco from
+If you want to check test coverage on FreeGrok, download jacoco from
 <http://www.eclemma.org/jacoco/>. Place `jacocoagent.jar` and `jacocoant.jar` in the
 `opengrok/lib`, `~/.ant/lib` or into classpath (`-lib` option of ant).
 
@@ -818,7 +819,7 @@ ant checkstyle -Dcheckstyle.home=lib/checkstyle
 
 ### 8.5 Using PMD and CPD
 
-To check the quality of the OpenGrok code you can also use PMD
+To check the quality of the FreeGrok code you can also use PMD
 from <https://pmd.github.io/>.
 
 How to install:
@@ -911,7 +912,7 @@ export SERVERIP=10.163.26.78
 Travis depends on updated and working maven build.
 Please see `.travis.yml`, if your branch has this file,
 you should be able to connect your Github to Travis CI.
-OpenGroks Travis is here: <https://travis-ci.org/OpenGrok/OpenGrok>
+FreeGrok's Travis is here: <https://travis-ci.org/FreeGrok/FreeGrok>
 
 ### 8.9 Maven
 
@@ -934,7 +935,7 @@ You can also force a specific repository test from running through the following
 ./mvnw test -Djunit-force-all=false -Djunit-force-git=true
 ```
 
-## 9. Tuning OpenGrok for large code bases
+## 9. Tuning FreeGrok for large code bases
 
 ### 9.1 Almost atomic index flip using ZFS
 
@@ -983,7 +984,7 @@ For tomcat you can easily get this done by creating `conf/setenv.sh`:
 # 64-bit Java
 JAVA_OPTS="$JAVA_OPTS -d64 -server"
 
-# OpenGrok memory boost to cover all-project searches
+# FreeGrok memory boost to cover all-project searches
 # (7 MB * 247 projects + 300 MB for cache should be enough)
 # 64-bit Java allows for more so let's use 8GB to be on the safe side.
 # We might need to allow more for concurrent all-project searches.
