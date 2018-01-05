@@ -1,6 +1,6 @@
 
-Copyright (c) 2006, 2017 Oracle and/or its affiliates. All rights reserved.
-Copyright (c) 2018 Chris Fraire <cfraire@me.com>.
+Copyright (c) 2006, 2017 Oracle and/or its affiliates. All rights reserved.<p>
+Copyright (c) 2018 Chris Fraire \<cfraire@me.com\>.
 
 
 # FreeGrok - a wicked fast source browser [![Build Status](https://travis-ci.org/FreeGrok/FreeGrok.svg?branch=master)](https://travis-ci.org/FreeGrok/FreeGrok)
